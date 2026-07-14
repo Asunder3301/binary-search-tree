@@ -52,6 +52,22 @@ export class Tree {
     return root;
   }
 
+  includes(value, node = this.root) {
+    if (node === null) {
+      return false;
+    }
+
+    if (value === node.data) {
+      return true;
+    }
+
+    if (value > node.data) {
+      return this.includes(value, node.left);
+    } else {
+      return this.includes(value, node.right);
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
