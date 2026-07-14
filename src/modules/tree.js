@@ -133,6 +133,30 @@ export class Tree {
     return min;
   }
 
+  levelOrderForEach(callback, node = this.root) {
+    if (!callback) {
+      throw new Error("Callbacl is required");
+    }
+    if (node === null) {
+      return;
+    }
+
+    let queue = [];
+    queue.push(node);
+
+    while (queue.length !== 0) {
+      let current = queue.shift();
+      callback(current.data);
+
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
