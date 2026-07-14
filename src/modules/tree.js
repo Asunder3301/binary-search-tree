@@ -71,22 +71,28 @@ export class Tree {
   insert(value, node = this.root) {
     if (this.root === null) {
       this.root = new Node(value);
-      return;
-    }
-
-    if (node === null) {
-      return new Node(value);
+      return this.root;
     }
 
     if (value === node.data) {
-      return;
+      return node;
     }
 
     if (value < node.data) {
-      return this.insert(value, node.left);
+      if (node.left === null) {
+        node.left = new Node(value);
+      } else {
+        this.insert(value, node.left);
+      }
     } else {
-      return this.insert(value, node.right);
+      if (node.right === null) {
+        node.right = new Node(value);
+      } else {
+        this.insert(value, node.right);
+      }
     }
+
+    return node;
   }
 
   deleteItem(value, node = this.root) {
@@ -257,7 +263,7 @@ export class Tree {
         return -1;
       }
 
-      if (Math.abs(left - right > 1)) {
+      if (Math.abs(left - right) > 1) {
         //Current node is unbalanced
         return -1;
       }
@@ -266,6 +272,16 @@ export class Tree {
     };
 
     return checkHeight(node) !== -1;
+  }
+
+  rebalance() {
+    const sortedArray = [];
+
+    this.inOrderForEach((value) => {
+      sortedArray.push(value);
+    });
+
+    this.root = this.buildTree(sortedArray);
   }
 
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
