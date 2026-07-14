@@ -171,6 +171,20 @@ export class Tree {
     this.inOrderForEach(callback, node.right);
   }
 
+  preOrderForEach(callback, node = this.root) {
+    if (!callback) {
+      throw new Error("Callback is required");
+    }
+
+    if (node === null) {
+      return;
+    }
+
+    callback(node.data);
+    this.preOrderForEach(callback, node.left);
+    this.preOrderForEach(callback, node.right);
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
