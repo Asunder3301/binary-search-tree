@@ -199,6 +199,30 @@ export class Tree {
     callback(node.data);
   }
 
+  height(value) {
+    let current = this.root;
+
+    while (current !== null && current.data !== value) {
+      current = value < current.data ? current.left : current.right;
+    }
+
+    if (current === null) {
+      return undefined;
+    }
+
+    const calculateHeight = (node) => {
+      if (node === null) {
+        return -1;
+      }
+
+      return (
+        Math.max(calculateHeight(node.left), calculateHeight(node.right)) + 1
+      );
+    };
+
+    return calculateHeight(current);
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
