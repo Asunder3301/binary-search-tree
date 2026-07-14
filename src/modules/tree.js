@@ -135,7 +135,7 @@ export class Tree {
 
   levelOrderForEach(callback, node = this.root) {
     if (!callback) {
-      throw new Error("Callbacl is required");
+      throw new Error("Callback is required");
     }
     if (node === null) {
       return;
@@ -155,6 +155,20 @@ export class Tree {
         queue.push(current.right);
       }
     }
+  }
+
+  inOrderForEach(callback, node = this.root) {
+    if (!callback) {
+      throw new Error("Callback is required");
+    }
+
+    if (node === null) {
+      return;
+    }
+
+    this.inOrderForEach(callback, node.left);
+    callback(node.data);
+    this.inOrderForEach(callback, node.right);
   }
 
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
