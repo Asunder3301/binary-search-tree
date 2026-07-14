@@ -61,7 +61,7 @@ export class Tree {
       return true;
     }
 
-    if (value > node.data) {
+    if (value < node.data) {
       return this.includes(value, node.left);
     } else {
       return this.includes(value, node.right);
@@ -82,7 +82,7 @@ export class Tree {
       return;
     }
 
-    if (value > node.data) {
+    if (value < node.data) {
       return this.insert(value, node.left);
     } else {
       return this.insert(value, node.right);
