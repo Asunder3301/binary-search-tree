@@ -223,6 +223,22 @@ export class Tree {
     return calculateHeight(current);
   }
 
+  depth(value, node = this.root, count = 0) {
+    if (node === null) {
+      return undefined;
+    }
+
+    if (value === node.data) {
+      return count;
+    }
+
+    if (value < node.data) {
+      return this.depth(value, node.left, count + 1);
+    } else {
+      return this.depth(value, node.right, count + 1);
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
