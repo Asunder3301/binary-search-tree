@@ -239,6 +239,35 @@ export class Tree {
     }
   }
 
+  isBalanced(node = this.root) {
+    const checkHeight = (current) => {
+      if (current === null) {
+        return 0;
+      }
+
+      let left = checkHeight(current.left);
+      //Left sub-tree is unbalanced
+      if (left === -1) {
+        return -1;
+      }
+
+      let right = checkHeight(current.right);
+      //Right sub-tree is unbalanced
+      if (right === -1) {
+        return -1;
+      }
+
+      if (Math.abs(left - right > 1)) {
+        //Current node is unbalanced
+        return -1;
+      }
+
+      return Math.max(left, right) + 1;
+    };
+
+    return checkHeight(node) !== -1;
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
