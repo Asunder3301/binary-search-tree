@@ -68,6 +68,27 @@ export class Tree {
     }
   }
 
+  insert(value, node = this.root) {
+    if (this.root === null) {
+      this.root = new Node(value);
+      return;
+    }
+
+    if (node === null) {
+      return new Node(value);
+    }
+
+    if (value === node.data) {
+      return;
+    }
+
+    if (value > node.data) {
+      return this.insert(value, node.left);
+    } else {
+      return this.insert(value, node.right);
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
