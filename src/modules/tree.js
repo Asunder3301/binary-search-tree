@@ -2,7 +2,8 @@ import { Node } from "./node.js";
 
 export class Tree {
   constructor(array) {
-    this.root = this.buildTree(array);
+    const sortedArray = this.mergeSort(array);
+    this.root = this.buildTree(sortedArray);
   }
 
   mergeSort(array) {
