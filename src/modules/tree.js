@@ -89,6 +89,50 @@ export class Tree {
     }
   }
 
+  deleteItem(value, node = this.root) {
+    if (node === null) {
+      return null;
+    }
+
+    if (value < node.data) {
+      node.left = this.deleteItem(value, node.left);
+    } else if (value > node.data) {
+      node.right = this.deleteItem(value, node.right);
+    } else {
+      //Node has no children or only one child
+      if (node.left === null) {
+        if (node === this.root) {
+          this.root = node.right;
+        }
+        return node.right;
+      } else if (node.right === null) {
+        if (node === this.root) {
+          this.root = node.left;
+        }
+        return node.left;
+      }
+
+      //Node has two children
+      //Set node value to smallest value in right sub-tree
+      node.data = this.#minValue(node.right);
+
+      //Delete duplicate value from right sub-tree
+      node.right = this.deleteItem(node.data, node.right);
+    }
+
+    return node;
+  }
+
+  #minValue(node) {
+    let min = node.data;
+    while (node.left !== null) {
+      min = node.left.data;
+      node = node.left;
+    }
+
+    return min;
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
